@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +14,14 @@
 */
 
 /** @type {import('@adonisjs/framework/src/Route/Manager'} */
-const Route = use('Route')
+const Route = use('Route');
 
-Route.get('/', () => {
-  return { greeting: 'Hello world in JSON' }
-})
+const Book = use('App/Models/Book');
+
+Route.group(() => {
+  Route.post('books', 'BookController.store');
+  Route.get('books', 'BookController.index');
+  Route.get('books/:id', 'BookController.show');
+  Route.put('books/:id', 'BookController.update');
+  Route.delete('books/:id', 'BookController.delete');
+}).prefix('api/v1');
